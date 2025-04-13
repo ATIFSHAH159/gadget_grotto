@@ -1,0 +1,119 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap');
+
+/* ==== Product Card ==== */
+.product-card {
+  background-color: #121212;
+  border: 1px solid #00ffe5;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 255, 229, 0.2);
+  border-color: #007bff;
+}
+
+/* ==== Add to Cart Button ==== */
+.add-to-cart-btn {
+  background-color: #00ffe5;
+  color: #000;
+  font-family: 'Orbitron', sans-serif;
+  border: none;
+  transition: all 0.3s ease;
+}
+
+.add-to-cart-btn:hover {
+  background-color: #007bff;
+  color: #fff;
+}
+
+/* ==== Left Filter Area ==== */
+.left-filter-area {
+  width: 20%;
+  margin-right: 2%;
+  background-color: #fff;
+  border-right: 1px solid #ccc;
+  border-radius: 0;
+  padding: 20px;
+  color: #000;
+  font-family: 'Orbitron', sans-serif;
+  min-height: 100vh;
+}
+
+.left-filter-area h5 {
+  margin-bottom: 15px;
+}
+
+/* ==== Custom Range (Slider) ==== */
+.custom-range {
+  width: 100%;
+  height: 6px;
+  border-radius: 3px;
+  background: linear-gradient(to right, #00ffe5 0%, #ccc 0%);
+  appearance: none;
+  outline: none;
+  cursor: pointer;
+  accent-color: #00ffe5; /* fallback for basic support */
+}
+
+/* Chrome, Safari, Edge */
+.custom-range::-webkit-slider-runnable-track {
+  height: 6px;
+  border-radius: 3px;
+  background: linear-gradient(to right, #00ffe5 0%, #ccc 0%);
+}
+
+.custom-range::-webkit-slider-thumb {
+  appearance: none;
+  height: 16px;
+  width: 16px;
+  background: #00ffe5;
+  border: none;
+  border-radius: 50%;
+  margin-top: -5px;
+  cursor: pointer;
+  transition: background 0.3s;
+  position: relative;
+  z-index: 2;
+}
+
+/* Firefox */
+.custom-range::-moz-range-track {
+  height: 6px;
+  background: #ccc;
+  border-radius: 3px;
+}
+
+.custom-range::-moz-range-progress {
+  background-color: #00ffe5;
+  height: 6px;
+  border-radius: 3px;
+}
+
+.custom-range::-moz-range-thumb {
+  height: 16px;
+  width: 16px;
+  background: #00ffe5;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+/* ==== Price Labels ==== */
+.price-labels {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  font-size: 0.85rem;
+  color: #aaa;
+}
+
+.price-mark {
+  flex: 1;
+  text-align: center;
+}
+
+/* ==== Right Area ==== */
+.right-product-area {
+  width: 78%;
+}

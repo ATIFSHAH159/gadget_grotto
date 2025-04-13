@@ -1,0 +1,51 @@
+html, body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+.Adminpanel {
+  display: flex;
+  flex-direction: row;
+  min-height: 100vh;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+/* Sidebar (left) */
+.AdminSidebar {
+  width: 250px;
+  min-width: 250px;
+  height: 100vh;
+}
+
+/* Content Area (right) */
+.AdminRight {
+  flex: 1;
+  height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 1rem;
+}
+
+/* Responsive layout for mobile devices */
+@media (max-width: 768px) {
+  .Adminpanel {
+    flex-direction: column;
+  }
+  
+  .AdminSidebar {
+    width: 100%;
+    min-width: 100%;
+    height: auto;
+  }
+  
+  .AdminRight {
+    width: 100%;
+    height: auto;
+    min-height: calc(100vh - 80px);
+    padding: 0.5rem;
+  }
+}

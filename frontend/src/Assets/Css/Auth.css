@@ -1,0 +1,250 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
+
+.auth-page {
+  background-color: #0A0A0D;
+  min-height: 100vh;
+  padding: 80px 0;
+  display: flex;
+  align-items: center;
+  font-family: 'Inter', sans-serif;
+  position: relative;
+  overflow: hidden;
+}
+
+.auth-page::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: radial-gradient(#00ffe5 1px, transparent 1px);
+  background-size: 30px 30px;
+  opacity: 0.05;
+  z-index: 0;
+}
+
+.auth-card {
+  background-color: #151518;
+  border: 1px solid #2A2A30;
+  border-radius: 15px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+  position: relative;
+  z-index: 1;
+}
+
+.auth-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.auth-header h2 {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 2rem;
+  color: #00FFE5;
+  margin-bottom: 10px;
+  text-shadow: 0 0 15px rgba(0, 255, 229, 0.3);
+}
+
+.auth-header p {
+  color: #B0B0B8;
+  font-size: 1rem;
+}
+
+.input-icon-wrapper {
+  position: relative;
+}
+
+.input-icon {
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #00FFE5;
+  font-size: 1.2rem;
+}
+
+.form-control {
+  background-color: #0E0E12;
+  border: 1px solid #2A2A30;
+  color: #FFFFFF;
+  border-radius: 8px;
+  padding: 12px 15px 12px 45px;
+  height: auto;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-control:focus {
+  background-color: #0E0E12;
+  border-color: #00FFE5;
+  box-shadow: 0 0 0 3px rgba(0, 255, 229, 0.2);
+  color: #FFFFFF;
+}
+
+.form-control.is-invalid {
+  border-color: #FF3B5B;
+  background-image: none;
+}
+
+.form-control.is-invalid:focus {
+  box-shadow: 0 0 0 3px rgba(255, 59, 91, 0.2);
+}
+
+.auth-checkbox {
+  color: #B0B0B8;
+}
+
+.auth-checkbox .form-check-input {
+  background-color: #0E0E12;
+  border: 1px solid #2A2A30;
+}
+
+.auth-checkbox .form-check-input:checked {
+  background-color: #00FFE5;
+  border-color: #00FFE5;
+}
+
+.forgot-link {
+  color: #00FFE5;
+  text-decoration: none;
+  transition: color 0.2s ease;
+  font-size: 0.9rem;
+}
+
+.forgot-link:hover {
+  color: #7B5CFF;
+  text-decoration: underline;
+}
+
+.auth-button {
+  background: linear-gradient(135deg, #00FFE5 0%, #7B5CFF 100%);
+  border: none;
+  color: #0A0A0D;
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 600;
+  padding: 12px;
+  border-radius: 8px;
+  width: 100%;
+  font-size: 1rem;
+  margin-bottom: 25px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.auth-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2), 0 0 0 5px rgba(0, 255, 229, 0.1);
+  background: linear-gradient(135deg, #00FFE5 0%, #7B5CFF 100%);
+  color: #0A0A0D;
+}
+
+.auth-separator {
+  position: relative;
+  text-align: center;
+  margin: 20px 0;
+}
+
+.auth-separator::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background-color: #2A2A30;
+}
+
+.auth-separator span {
+  position: relative;
+  background-color: #151518;
+  padding: 0 15px;
+  color: #B0B0B8;
+  font-size: 0.9rem;
+}
+
+.social-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.social-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 12px;
+  border-radius: 8px;
+  font-weight: 500;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  font-size: 0.95rem;
+}
+
+.social-button.google {
+  background-color: #DD4B39;
+  border: none;
+}
+
+.social-button.facebook {
+  background-color: #3B5998;
+  border: none;
+}
+
+.social-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.auth-footer {
+  text-align: center;
+  color: #B0B0B8;
+  font-size: 0.95rem;
+}
+
+.auth-link {
+  color: #00FFE5;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.2s ease;
+}
+
+.auth-link:hover {
+  color: #7B5CFF;
+  text-decoration: underline;
+}
+.password-hint {
+  font-size: 0.85rem;
+  color: #7B5CFF;
+  margin-top: 5px;
+  display: none;
+}
+
+.password-hint.visible {
+  display: block;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 767px) {
+  .auth-page {
+    padding: 40px 0;
+  }
+  
+  .auth-header h2 {
+    font-size: 1.8rem;
+  }
+  
+  .auth-card {
+    margin: 0 15px;
+  }
+}
+
+@media (max-width: 576px) {
+  .auth-header h2 {
+    font-size: 1.5rem;
+  }
+  
+  .social-button {
+    font-size: 0.85rem;
+  }
+} 

@@ -1,0 +1,384 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap');
+
+.navbar {
+  background-color: #0e0e10;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
+  z-index: 1000;
+}
+
+.navbar-brand {
+  color: #00ffe5;
+  font-weight: 600;
+  font-size: 1.6rem;
+  font-family: 'Orbitron', sans-serif;
+  letter-spacing: 1.5px;
+  display: flex;
+  align-items: center;
+  margin-right: auto;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.navbar-brand:hover {
+  color: #00bcd4;
+}
+
+.navelement {
+  text-decoration: none;
+  color: #ffffff;
+  margin: 0 12px;
+  font-size: 1.1rem;
+  font-weight: 500;
+  font-family: 'Orbitron', sans-serif;
+  transition: color 0.3s ease;
+  
+}
+
+.navelement:hover {
+  color: #00ffe5;
+  text-shadow: 0 0 6px rgba(0, 255, 229, 0.3);
+}
+
+.navelement.active {
+  color: #007bff;
+  font-weight: 600;
+  text-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+}
+
+.navelement::after {
+  content: '';
+  display: block;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(to right, #00ffe5, #007bff);
+  transition: width 0.4s ease-in-out;
+}
+
+.navelement:hover::after {
+  width: 100%;
+}
+
+.custom-dropdown .dropdown-toggle {
+  color: #ffffff !important;
+  font-family: 'Orbitron', sans-serif;
+}
+
+.custom-dropdown .dropdown-menu {
+  padding: 1rem;
+  background-color: #1c1c1e;
+  border: none;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+  width: 480px;
+  
+}
+
+.dropdown-grid {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.dropdown-grid .dropdown-item {
+  color: #ffffff;
+  font-family: 'Orbitron', sans-serif;
+  transition: all 0.3s ease;
+}
+
+.dropdown-grid .dropdown-item:hover {
+  background-color: transparent;
+  color: #00ffe5;
+  text-shadow: 0 0 5px rgba(0, 255, 229, 0.3);
+}
+
+.cart-icon {
+  display: flex;
+  align-items: center;
+  color: #ffffff;
+  transition: color 0.3s ease;
+}
+
+.cart-icon:hover {
+  color: #00bcd4;
+}
+
+.login-btn {
+  font-family: 'Orbitron', sans-serif;
+  border-color: #00ffe5;
+  color: #00ffe5;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  margin-left: 10px;
+}
+
+.login-btn:hover {
+  background-color: #00ffe5;
+  color: #000;
+}
+
+/* ==== Responsive Mobile Styling ==== */
+@media (max-width: 991px) {
+  .navbar-collapse {
+    position: absolute;
+    top: 70px; /* Adjust based on your navbar height */
+    left: 0;
+    right: 0;
+    background-color: #0e0e10;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    padding: 15px;
+    max-height: calc(100vh - 70px);
+    overflow-y: auto;
+  }
+  
+  .dropdown-toggle::after {
+    display: none; /* Remove default dropdown arrow */
+  }
+  
+  .custom-dropdown .dropdown-menu {
+    position: static !important;
+    float: none;
+    width: 100%;
+    margin-top: 0;
+    background-color: #1a1a1a;
+    box-shadow: none;
+    border-radius: 0;
+    padding: 10px;
+    display: block;
+    transform: none !important;
+    opacity: 1;
+  }
+  
+  .dropdown-grid {
+    display: block;
+  }
+  
+  .dropdown-grid > div {
+    margin-bottom: 10px;
+  }
+  
+  .dropdown-grid .dropdown-item {
+    padding: 10px;
+    text-align: center;
+    border-radius: 5px;
+  }
+  
+  .dropdown-grid .dropdown-item:hover {
+    background-color: #222;
+  }
+  
+  .navelement {
+    padding: 12px 0;
+    margin: 5px 0;
+    width: 100%;
+    text-align: center;
+    border-radius: 5px;
+  }
+  
+  .navelement:hover {
+    background-color: rgba(0, 255, 229, 0.05);
+  }
+  
+  .navbar-nav .dropdown-menu {
+    position: static;
+    float: none;
+  }
+  
+  .login-btn {
+    width: 100%;
+    margin: 10px 0;
+    padding: 8px 0;
+  }
+  
+  .cart-icon {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 991px) {
+  .navbar-nav .nav-item.dropdown {
+    position: static;
+  }
+  
+  .navbar-nav .dropdown-menu {
+    left: 0;
+    right: 0;
+  }
+  
+  .navbar-nav .nav-link.dropdown-toggle[aria-expanded="true"] + .dropdown-menu {
+    display: block;
+  }
+}
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-grow: 1;
+  flex-wrap: wrap;
+  gap: 15px; 
+}
+
+.navbar .nav-links {
+  display: flex;
+  align-items: center;
+  gap: 35px; /* Ensure there's space between the nav items */
+}
+
+.navbar .nav-links .navelement,
+.navbar .nav-links .cart-icon,
+.navbar .nav-links .login-btn {
+  margin: 0;
+}
+.search-form {
+  display: flex;
+  align-items: center;
+}
+
+.search-input {
+  background-color: #1c1c1e;
+  border: 1px solid #00ffe5;
+  border-radius: 20px;
+  padding: 5px 15px;
+  color: #fff;
+  font-family: 'Orbitron', sans-serif;
+  width: 180px;
+  transition: border 0.3s ease, background 0.3s ease;
+}
+
+.search-input::placeholder {
+  color: #aaa;
+}
+
+.search-input:focus {
+  background-color: #0e0e10;
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 6px rgba(0, 255, 229, 0.3);
+}
+
+@media (max-width: 991px) {
+  .navbar-right {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+
+  .search-form {
+    width: 100%;
+    margin: 10px 0;
+  }
+
+  .search-input {
+    width: 90%;
+  }
+}
+
+/* Add these improved styles for mobile responsiveness */
+
+/* Ensure smooth transitions for the mobile menu */
+.navbar-collapse {
+  transition: height 0.3s ease-in-out;
+}
+
+/* Fix for NavDropdown in mobile view */
+@media (max-width: 991px) {
+  /* Improve mobile menu layout */
+  .navbar-collapse {
+    position: absolute;
+    top: 70px; /* Adjust based on your navbar height */
+    left: 0;
+    right: 0;
+    background-color: #0e0e10;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    padding: 15px;
+    max-height: calc(100vh - 70px);
+    overflow-y: auto;
+  }
+  
+  /* Improve dropdown appearance */
+  .dropdown-toggle::after {
+    display: none; /* Remove default dropdown arrow */
+  }
+  
+  .custom-dropdown .dropdown-menu {
+    position: static !important;
+    float: none;
+    width: 100%;
+    margin-top: 0;
+    background-color: #1a1a1a;
+    box-shadow: none;
+    border-radius: 0;
+    padding: 10px;
+    display: block;
+    transform: none !important;
+    opacity: 1;
+  }
+  
+  /* Fix for dropdown items */
+  .dropdown-grid {
+    display: block;
+  }
+  
+  .dropdown-grid > div {
+    margin-bottom: 10px;
+  }
+  
+  .dropdown-grid .dropdown-item {
+    padding: 10px;
+    text-align: center;
+    border-radius: 5px;
+  }
+  
+  .dropdown-grid .dropdown-item:hover {
+    background-color: #222;
+  }
+  
+  /* Improve spacing */
+  .navelement {
+    padding: 12px 0;
+    margin: 5px 0;
+    width: 100%;
+    text-align: center;
+    border-radius: 5px;
+  }
+  
+  .navelement:hover {
+    background-color: rgba(0, 255, 229, 0.05);
+  }
+  
+  /* Fix positioning of dropdown menu */
+  .navbar-nav .dropdown-menu {
+    position: static;
+    float: none;
+  }
+  
+  /* Make login button full width */
+  .login-btn {
+    width: 100%;
+    margin: 10px 0;
+    padding: 8px 0;
+  }
+  
+  /* Fix cart icon alignment */
+  .cart-icon {
+    justify-content: center;
+  }
+}
+
+/* Handle dropdown show/hide better on mobile */
+@media (max-width: 991px) {
+  .navbar-nav .nav-item.dropdown {
+    position: static;
+  }
+  
+  .navbar-nav .dropdown-menu {
+    left: 0;
+    right: 0;
+  }
+  
+  /* Make the Products dropdown toggle work without JavaScript */
+  .navbar-nav .nav-link.dropdown-toggle[aria-expanded="true"] + .dropdown-menu {
+    display: block;
+  }
+}
