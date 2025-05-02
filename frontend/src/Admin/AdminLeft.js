@@ -1,13 +1,16 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState, useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { IoHome } from "react-icons/io5";
 import { MdAddBox, MdOutlineReviews } from "react-icons/md";
-import { FaEye } from "react-icons/fa";
+import { FaEye, FaUser, FaSignOutAlt } from "react-icons/fa";
 import { FaBars, FaTimes } from "react-icons/fa";
 import '../Admin/Assets/AdminSidebar.css';
+import AuthContext from '../Context/AuthContext';
 
 function AdminSidebar() {
     const [isOpen, setIsOpen] = useState(false);
+    const navigate = useNavigate();
+    const { user, logout } = useContext(AuthContext);
     
     const toggleSidebar = () => {
         setIsOpen(!isOpen);
@@ -17,6 +20,11 @@ function AdminSidebar() {
         if (window.innerWidth <= 768) {
             setIsOpen(false);
         }
+    };
+
+    const handleLogout = () => {
+        logout();
+        navigate('/');
     };
 
     return (
@@ -29,6 +37,20 @@ function AdminSidebar() {
             </div>
             
             <div className={`sidebar-content ${isOpen ? 'open' : ''}`}>
+                {/* Admin Profile Section */}
+                <div className="admin-profile">
+                    <div className="admin-info">
+                        <FaUser className="admin-icon" />
+                        <div className="admin-details">
+                            <span className="admin-name">{user?.name}</span>
+                            <span className="admin-role">Administrator</span>
+                        </div>
+                    </div>
+                    <button className="logout-btn" onClick={handleLogout}>
+                        <FaSignOutAlt /> Logout
+                    </button>
+                </div>
+
                 <ul>
                     <li>
                         <Link to="/admin/" className="sidebar-link" onClick={closeSidebar}>

@@ -382,3 +382,39 @@
     display: block;
   }
 }
+
+.user-dropdown .dropdown-toggle {
+  color: #00FFE5;
+  background: transparent;
+  border: 1px solid #00FFE5;
+  padding: 8px 15px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  transition: all 0.3s ease;
+}
+
+.user-dropdown .dropdown-toggle:hover {
+  background: rgba(0, 255, 229, 0.1);
+  color: #00FFE5;
+}
+
+.user-dropdown .dropdown-menu {
+  background-color: #151518;
+  border: 1px solid #2A2A30;
+  border-radius: 8px;
+  padding: 0;
+  margin-top: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.user-dropdown .dropdown-item {
+  color: #B0B0B8;
+  padding: 10px 20px;
+  transition: all 0.3s ease;
+}
+
+.user-dropdown .dropdown-item:hover {
+  background-color: #2A2A30;
+  color: #00FFE5;
+}

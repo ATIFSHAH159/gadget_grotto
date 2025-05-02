@@ -1,204 +1,151 @@
-import React, { useState } from "react";
-import { Container, Form, Button, Card, Row, Col } from "react-bootstrap";
-import { Link } from "react-router-dom";
-import { FaUser, FaLock, FaEnvelope, FaGoogle, FaFacebook, FaInfoCircle } from "react-icons/fa";
-import "../Assets/Css/Auth.css";
+import { useState, useContext } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
+import AuthContext from '../Context/AuthContext';
+import './Auth.css';
 
-function Signup() {
+const Signup = ({ showNotification }) => {
   const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
-    agreed: false,
+    name: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
   });
-  const [validated, setValidated] = useState(false);
-  const [passwordFocus, setPasswordFocus] = useState(false);
-
-  const validateEmail = (email) =>
-    /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  const [loading, setLoading] = useState(false);
+  const [passwordStrength, setPasswordStrength] = useState('weak');
+  const { register } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
+    const { name, value } = e.target;
     setFormData({
       ...formData,
-      [name]: type === "checkbox" ? checked : value,
+      [name]: value,
     });
+
+    // Check password strength
+    if (name === 'password') {
+      const strength = checkPasswordStrength(value);
+      setPasswordStrength(strength);
+    }
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const form = event.currentTarget;
+  const checkPasswordStrength = (password) => {
+    const hasUpperCase = /[A-Z]/.test(password);
+    const hasLowerCase = /[a-z]/.test(password);
+    const hasNumbers = /\d/.test(password);
+    const isLongEnough = password.length >= 6;
 
-    const isEmailValid = validateEmail(formData.email);
-    const isPasswordValid = formData.password.length >= 6;
-    const isPasswordMatch = formData.password === formData.confirmPassword;
-    const hasAgreed = formData.agreed;
+    const strength = [hasUpperCase, hasLowerCase, hasNumbers,  isLongEnough]
+      .filter(Boolean).length;
 
-    if (
-      !form.checkValidity() ||
-      !isEmailValid ||
-      !isPasswordValid ||
-      !isPasswordMatch ||
-      !hasAgreed
-    ) {
-      event.stopPropagation();
-    } else {
-      console.log("Registration with:", formData);
-      alert("Registration successful! (This is a demo)");
+    if (strength <= 2) return 'weak';
+    if (strength <= 4) return 'medium';
+    return 'strong';
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+
+    if (formData.password !== formData.confirmPassword) {
+      showNotification('Passwords do not match', 'error');
+      setLoading(false);
+      return;
     }
 
-    setValidated(true);
+    try {
+      await register({
+        name: formData.name,
+        email: formData.email,
+        password: formData.password,
+      });
+      showNotification('Registration successful!', 'success');
+      // Clear the form after successful registration
+      setFormData({
+        name: '',
+        email: '',
+        password: '',
+        confirmPassword: '',
+      });
+    } catch (error) {
+      showNotification(error.message || 'Registration failed. Please try again.', 'error');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
-    <div className="auth-page">
-      <Container>
-        <Row className="justify-content-center">
-          <Col lg={5} md={8} sm={12}>
-            <Card className="auth-card">
-              <Card.Body>
-                <div className="auth-header">
-                  <h2>Create Account</h2>
-                  <p>Join Gadget Grotto for exclusive deals</p>
-                </div>
-
-                <Form noValidate validated={validated} onSubmit={handleSubmit}>
-                  {/* Full Name */}
-                  <Form.Group className="mb-4">
-                    <div className="input-icon-wrapper">
-                      <FaUser className="input-icon" />
-                      <Form.Control
-                        type="text"
-                        name="name"
-                        placeholder="Full Name"
-                        value={formData.name}
-                        onChange={handleChange}
-                        required
-                      />
-                    </div>
-                    <Form.Control.Feedback type="invalid">
-                      Please provide your name.
-                    </Form.Control.Feedback>
-                  </Form.Group>
-
-                  {/* Email */}
-                  <Form.Group className="mb-4">
-                    <div className="input-icon-wrapper">
-                      <FaEnvelope className="input-icon" />
-                      <Form.Control
-                        type="email"
-                        name="email"
-                        placeholder="Email address"
-                        value={formData.email}
-                        onChange={handleChange}
-                        isInvalid={validated && !validateEmail(formData.email)}
-                        required
-                      />
-                    </div>
-                    <Form.Control.Feedback type="invalid">
-                      Please provide a valid email address.
-                    </Form.Control.Feedback>
-                  </Form.Group>
-
-                  {/* Password */}
-                  <Form.Group className="mb-3">
-                    <div className="input-icon-wrapper">
-                      <FaLock className="input-icon" />
-                      <Form.Control
-                        type="password"
-                        name="password"
-                        placeholder="Password"
-                        value={formData.password}
-                        onChange={handleChange}
-                        onFocus={() => setPasswordFocus(true)}
-                        onBlur={() => setPasswordFocus(false)}
-                        isInvalid={validated && formData.password.length < 6}
-                        required
-                        minLength={6}
-                        aria-describedby="passwordHelpBlock"
-                      />
-                    </div>
-                    <Form.Control.Feedback type="invalid">
-                      Password must be at least 6 characters.
-                    </Form.Control.Feedback>
-                    <Form.Text id="passwordHelpBlock" className={`password-hint ${passwordFocus ? 'visible' : ''}`}>
-                      <FaInfoCircle className="me-1" />
-                      Your password must be at least 6 characters long.
-                    </Form.Text>
-                  </Form.Group>
-
-                  {/* Confirm Password */}
-                  <Form.Group className="mb-4">
-                    <div className="input-icon-wrapper">
-                      <FaLock className="input-icon" />
-                      <Form.Control
-                        type="password"
-                        name="confirmPassword"
-                        placeholder="Confirm Password"
-                        value={formData.confirmPassword}
-                        onChange={handleChange}
-                        isInvalid={validated && 
-                          (formData.confirmPassword !== formData.password || 
-                           (formData.confirmPassword.length > 0 && formData.password.length < 6))}
-                        required
-                        minLength={6}
-                      />
-                    </div>
-                    <Form.Control.Feedback type="invalid">
-                      {formData.password.length < 6 
-                        ? "Password must be at least 6 characters." 
-                        : "Passwords do not match."}
-                    </Form.Control.Feedback>
-                  </Form.Group>
-
-                  {/* Terms */}
-                  <Form.Group className="mb-4">
-                    <Form.Check
-                      required
-                      name="agreed"
-                      checked={formData.agreed}
-                      onChange={handleChange}
-                      label="I agree to the Terms & Conditions"
-                      feedback="You must agree before submitting."
-                      feedbackType="invalid"
-                      className="auth-checkbox"
-                    />
-                  </Form.Group>
-
-                  <Button type="submit" className="auth-button">
-                    Create Account
-                  </Button>
-                </Form>
-
-                <div className="auth-separator">
-                  <span>OR</span>
-                </div>
-
-                <div className="social-buttons">
-                  <Button className="social-button google">
-                    <FaGoogle /> Sign up with Google
-                  </Button>
-                  <Button className="social-button facebook">
-                    <FaFacebook /> Sign up with Facebook
-                  </Button>
-                </div>
-
-                <div className="auth-footer">
-                  <p>
-                    Already have an account?{" "}
-                    <Link to="/login" className="auth-link">
-                      Sign In
-                    </Link>
-                  </p>
-                </div>
-              </Card.Body>
-            </Card>
-          </Col>
-        </Row>
-      </Container>
+    <div className="auth-container">
+      <div className="auth-form">
+        <h2>Create Account</h2>
+        <form onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label>Full Name</label>
+            <input
+              type="text"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              required
+              disabled={loading}
+              placeholder="Enter your full name"
+            />
+          </div>
+          <div className="form-group">
+            <label>Email Address</label>
+            <input
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              required
+              disabled={loading}
+              placeholder="Enter your email"
+            />
+          </div>
+          <div className="form-group">
+            <label>Password</label>
+            <input
+              type="password"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              required
+              minLength={6}
+              disabled={loading}
+              placeholder="Create a password"
+            />
+            <div className={`password-strength ${passwordStrength}`}>
+              <div className="password-strength-bar"></div>
+            </div>
+          </div>
+          <div className="form-group">
+            <label>Confirm Password</label>
+            <input
+              type="password"
+              name="confirmPassword"
+              value={formData.confirmPassword}
+              onChange={handleChange}
+              required
+              minLength={6}
+              disabled={loading}
+              placeholder="Confirm your password"
+            />
+          </div>
+          <button 
+            type="submit" 
+            className="auth-button" 
+            disabled={loading || passwordStrength === 'weak'}
+          >
+            {loading ? 'Creating account...' : 'Sign Up'}
+          </button>
+        </form>
+        <p className="auth-link">
+          Already have an account? <Link to="/login">Login</Link>
+        </p>
+      </div>
     </div>
   );
-}
+};
 
 export default Signup;

@@ -281,8 +281,8 @@ function ViewProducts() {
   value={updatedValues.price}
   onChange={(e) => {
     const value = e.target.value;
-    if (/[^0-9]/.test(value)) {
-      alert("Please enter numbers only for price");
+    if (!/^\d*\.?\d*$/.test(value)) {
+      alert("Please enter a valid number (digits and optional decimal point)");
       return;
     }
     setUpdatedValues({ ...updatedValues, price: value });

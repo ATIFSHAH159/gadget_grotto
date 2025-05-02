@@ -3,14 +3,17 @@ import { Link, NavLink, useNavigate } from "react-router-dom";
 import { Container, Nav, Navbar, NavDropdown, Button } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../Assets/Css/Menubar.css";
-import { FaShoppingCart } from "react-icons/fa";
+import { FaShoppingCart, FaUser } from "react-icons/fa";
 import logo from "../Assets/Images/logo.png";
 import { useContextData } from "../Common/Context";
+import { useContext } from "react";
+import AuthContext from "../Context/AuthContext";
 
 function Menubar() {
   const [expanded, setExpanded] = useState(false);
   const navigate = useNavigate();
   const { cart, handleSearch } = useContextData();
+  const { user, logout } = useContext(AuthContext);
   const cartCount = cart.reduce((total, item) => total + item.quantity, 0);
 
   const handleNavbarToggle = () => {
@@ -30,6 +33,12 @@ function Menubar() {
       handleSearch(searchInput);
       navigate("/search");
     }
+  };
+
+  const handleLogout = () => {
+    logout();
+    navigate('/');
+    setExpanded(false);
   };
 
   return (
@@ -163,13 +172,6 @@ function Menubar() {
                 >
                   Contact Us
                 </NavLink>
-                <NavLink
-                  to="/admin"
-                  className="navelement"
-                  onClick={handleNavLinkClick}
-                >
-                  Admin
-                </NavLink>
 
                 <NavLink
                   to="/addtocart"
@@ -210,10 +212,27 @@ function Menubar() {
                 </Button>
               </form>
 
-              {/* Login Button */}
-              <Link to="/login" className="login-btn btn btn-outline-info" onClick={handleNavLinkClick}>
-                Login
-              </Link>
+              {/* User Profile or Login Button */}
+              {user ? (
+                <NavDropdown
+                  title={
+                    <span className="d-flex align-items-center">
+                      <FaUser className="me-2" />
+                      {user.name}
+                    </span>
+                  }
+                  id="user-dropdown"
+                  className="user-dropdown"
+                >
+                  <NavDropdown.Item onClick={handleLogout}>
+                    Logout
+                  </NavDropdown.Item>
+                </NavDropdown>
+              ) : (
+                <Link to="/login" className="login-btn btn btn-outline-info" onClick={handleNavLinkClick}>
+                  Login
+                </Link>
+              )}
             </div>
           </Navbar.Collapse>
         </Container>

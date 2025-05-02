@@ -1,18 +1,60 @@
-import React from "react";
+import React, { useState } from "react";
 import { Container, Row, Col, Button, Card } from "react-bootstrap";
 import { useContextData } from "../Common/Context";
 import { FaPlus, FaMinus, FaTrashAlt, FaShoppingBag, FaArrowLeft } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { createCheckoutSession } from '../Services/api';
 import '../Assets/Css/Addtocart.css';
 
 function AddtoCart() {
   const { cart, incrementQty, decrementQty, removeFromCart } = useContextData();
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
   
   // Calculate cart totals
   const cartSubtotal = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
   const shipping = cart.length > 0 ? 99 : 0;
   const tax = cartSubtotal * 0.18; // 18% tax
   const cartTotal = cartSubtotal + shipping + tax;
+
+  const handleCheckout = async () => {
+    try {
+      // Check if user is logged in
+      const user = JSON.parse(localStorage.getItem('user'));
+      if (!user || !user.token) {
+        // Redirect to login page, storing the current URL to return after login
+        navigate('/login', { state: { from: '/addtocart' } });
+        return;
+      }
+
+      setLoading(true);
+      // Transform cart items to match the expected format
+      const items = cart.map(item => {
+        // Clean and encode the image path
+        const cleanImagePath = item.pic.replace(/\\/g, '/').replace('Images/', '');
+        const encodedImagePath = encodeURIComponent(cleanImagePath);
+        
+        return {
+          _id: item._id,
+          name: item.name,
+          price: item.price,
+          quantity: item.quantity,
+          image: `http://localhost:5000/Images/${encodedImagePath}`
+        };
+      });
+      
+      const { url } = await createCheckoutSession(items);
+      window.location.href = url;
+    } catch (error) {
+      console.error('Checkout error:', error);
+      if (error.message === 'Not authorized, no token') {
+        navigate('/login', { state: { from: '/addtocart' } });
+      }
+      // You might want to add error notification here
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="cart-page">
@@ -123,13 +165,12 @@ function AddtoCart() {
                   <span>Rs.{cartTotal.toFixed(2)}</span>
                 </div>
                 
-                <div className="promo-code">
-                  <input type="text" placeholder="Enter promo code" />
-                  <button>Apply</button>
-                </div>
-                
-                <Button className="checkout-button">
-                  Proceed to Checkout
+                <Button 
+                  className="checkout-button" 
+                  onClick={handleCheckout}
+                  disabled={loading}
+                >
+                  {loading ? 'Processing...' : 'Proceed to Checkout'}
                 </Button>
                 
                 <div className="payment-methods">
