@@ -1,11 +1,18 @@
-import { createContext, useState, useContext } from "react";
+import { createContext, useState, useContext, useEffect } from "react";
 
 const context = createContext(); 
 
 export const ContextProvider = ({ children }) => {
   const [sliderValue, setSliderValue] = useState(1000);
-  const [cart, setCart] = useState([]);
+  const [cart, setCart] = useState(() => {
+    const storedCart = localStorage.getItem('cart');
+    return storedCart ? JSON.parse(storedCart) : [];
+  });
   const [searchQuery, setSearchQuery] = useState("");
+
+  useEffect(() => {
+    localStorage.setItem('cart', JSON.stringify(cart));
+  }, [cart]);
 
   // Slider change logic
   const handleSliderChange = (e) => {
@@ -29,13 +36,16 @@ export const ContextProvider = ({ children }) => {
   const addToCart = (product) => {
     const existing = cart.find((item) => item._id === product._id);
     if (existing) {
-      setCart(
-        cart.map((item) =>
-          item._id === product._id
-            ? { ...item, quantity: item.quantity + 1 }
-            : item
-        )
-      );
+      if (existing.quantity < (product.stock || 0)) {
+        setCart(
+          cart.map((item) =>
+            item._id === product._id
+              ? { ...item, quantity: item.quantity + 1 }
+              : item
+          )
+        );
+      }
+      // else do nothing or show a message (optional)
     } else {
       setCart([...cart, { ...product, quantity: 1 }]);
     }
@@ -44,7 +54,9 @@ export const ContextProvider = ({ children }) => {
   const incrementQty = (id) => {
     setCart(
       cart.map((item) =>
-        item._id === id ? { ...item, quantity: item.quantity + 1 } : item
+        item._id === id && item.quantity < (item.stock || 0)
+          ? { ...item, quantity: item.quantity + 1 }
+          : item
       )
     );
   };

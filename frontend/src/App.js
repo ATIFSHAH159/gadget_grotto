@@ -24,6 +24,10 @@ import { AuthProvider } from './Context/AuthContext';
 import ProtectedRoute from './Components/ProtectedRoute';
 import { useState } from 'react';
 import Notification from './Components/Notification';
+import ProductDetail from "./Pages/ProductDetail";
+import Success from './Pages/Success';
+import OrderHistory from './Pages/OrderHistory';
+import AdminOrders from './Admin/AdminOrders';
 
 function App() {
   const location = useLocation();
@@ -54,7 +58,7 @@ function App() {
         <Route path='/contactus' element={<Contactus/>}/>
         <Route path='/addtocart' element={<AddtoCart/>}/>
         <Route path='/products/Powerbanks' element={<PowerBanks/>}/>
-        <Route path='/products/Bluetooth_speakers' element={<BluetoothSpeaker/>}/>
+        <Route path='/products/Bluetooth_Speaker' element={<BluetoothSpeaker/>}/>
         <Route path='/products/Fitness_Bands' element={<FitnessBands/>}/>
         <Route path='/products/Phone_Cases & Covers' element={<PhoneCases/>}/>
         <Route path='/products/Gaming_Headsets' element={<GamingHeadsets/>}/>
@@ -65,7 +69,10 @@ function App() {
         <Route path='/products/Earbuds' element={<EarBuds/>}/>
         <Route path="/login" element={<Login showNotification={showNotification} />} />
         <Route path="/signup" element={<Signup showNotification={showNotification} />} />
+        <Route path="/product/:id" element={<ProductDetail />} />
         <Route path="/search" element={<SearchResults />} />
+        <Route path="/success" element={<Success />} />
+        <Route path="/orders" element={<OrderHistory />} />
         
         {/* Protected Admin Routes */}
         <Route path='/admin/*' element={

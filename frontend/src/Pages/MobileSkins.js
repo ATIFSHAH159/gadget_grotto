@@ -4,6 +4,7 @@ import { Card, Button, Row, Col, Container } from "react-bootstrap";
 import { FaPlus, FaMinus, FaFilter, FaShoppingCart, FaBox } from "react-icons/fa";
 import { useContextData } from "../Common/Context";
 import "../Assets/Css/ProductPages.css";
+import { Link } from "react-router-dom";
 
 function MobileSkins() {
   const [mobileSkinData, setMobileSkinData] = useState([]);
@@ -101,54 +102,56 @@ function MobileSkins() {
             <Row className="g-4">
               {filteredData.map((item, index) => (
                 <Col lg={4} md={6} sm={6} xs={12} key={index}>
-                  <Card style={{ 
-                    width: '100%', 
-                    height: '100%', 
-                    backgroundColor: '#151518',
-                    border: '1px solid rgba(0, 255, 229, 0.15)',
-                    borderRadius: '12px',
-                    boxShadow: '0 5px 15px rgba(0,0,0,0.1)'
-                  }}>
-                    <Card.Img 
-                      variant="top" 
-                      src={`http://localhost:5000/${item.pic}`}
-                      style={{ 
-                        height: "280px", 
-                        objectFit: "contain",
-                        backgroundColor: "#ffffff",
-                        borderRadius: '12px 12px 0 0'
-                      }}
-                    />
-                    <Card.Body style={{ backgroundColor: '#151518' }}>
-                      <Card.Title style={{ 
-                        color: '#00FFE5', 
-                        fontFamily: 'Orbitron, sans-serif',
-                        fontWeight: '600'
-                      }}>{item.name}</Card.Title>
-                      <Card.Text style={{ color: '#B0B0B8' }}>
-                        {item.discription}
-                      </Card.Text>
-                      <Card.Text style={{ 
-                        color: '#00FFE5', 
-                        fontWeight: 'bold',
-                        fontSize: '1.2rem'
-                      }}>
-                        Price: Rs.{item.price}
-                      </Card.Text>
-                      <Button 
-                        variant="primary" 
-                        style={{
-                          background: 'linear-gradient(135deg, #00FFE5 0%, #7B5CFF 100%)',
-                          border: 'none',
+                  <Link to={`/product/${item._id}`} style={{ textDecoration: 'none' }}>
+                    <Card style={{ 
+                      width: '100%', 
+                      height: '100%', 
+                      backgroundColor: '#151518',
+                      border: '1px solid rgba(0, 255, 229, 0.15)',
+                      borderRadius: '12px',
+                      boxShadow: '0 5px 15px rgba(0,0,0,0.1)'
+                    }}>
+                      <Card.Img 
+                        variant="top" 
+                        src={`http://localhost:5000/${item.pic}`}
+                        style={{ 
+                          height: "280px", 
+                          objectFit: "contain",
+                          backgroundColor: "#ffffff",
+                          borderRadius: '12px 12px 0 0'
+                        }}
+                      />
+                      <Card.Body style={{ backgroundColor: '#151518' }}>
+                        <Card.Title style={{ 
+                          color: '#00FFE5', 
                           fontFamily: 'Orbitron, sans-serif',
                           fontWeight: '600'
-                        }}
-                        onClick={() => addToCart(item)}
-                      >
-                        <FaShoppingCart /> Add to Cart
-                      </Button>
-                    </Card.Body>
-                  </Card>
+                        }}>{item.name}</Card.Title>
+                        <Card.Text style={{ color: '#B0B0B8' }}>
+                          {item.discription}
+                        </Card.Text>
+                        <Card.Text style={{ 
+                          color: '#00FFE5', 
+                          fontWeight: 'bold',
+                          fontSize: '1.2rem'
+                        }}>
+                          Price: Rs.{item.price}
+                        </Card.Text>
+                        <Button 
+                          variant="primary" 
+                          style={{
+                            background: 'linear-gradient(135deg, #00FFE5 0%, #7B5CFF 100%)',
+                            border: 'none',
+                            fontFamily: 'Orbitron, sans-serif',
+                            fontWeight: '600'
+                          }}
+                          onClick={() => addToCart(item)}
+                        >
+                          <FaShoppingCart /> Add to Cart
+                        </Button>
+                      </Card.Body>
+                    </Card>
+                  </Link>
                 </Col>
               ))}
             </Row>

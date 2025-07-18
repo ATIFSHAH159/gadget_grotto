@@ -4,6 +4,7 @@ import { Card, Button, Row, Col, Container } from "react-bootstrap";
 import { FaPlus, FaMinus, FaFilter, FaShoppingCart, FaBox } from "react-icons/fa";
 import { useContextData } from "../Common/Context"; 
 import "../Assets/Css/ProductPages.css";
+import { Link } from "react-router-dom";
 
 function PowerBanks() {
   const [powerbankdata, setpowerbankdata] = useState([]);
@@ -101,6 +102,7 @@ function PowerBanks() {
             <Row className="g-4">
               {filteredData.map((item, index) => (
                 <Col lg={4} md={6} sm={6} xs={12} key={index}>
+                  <Link to={`/product/${item._id}`} style={{ textDecoration: 'none' }}>
                   <Card style={{ 
                     width: '100%', 
                     height: '100%', 
@@ -149,6 +151,7 @@ function PowerBanks() {
                       </Button>
                     </Card.Body>
                   </Card>
+                  </Link>
                 </Col>
               ))}
             </Row>

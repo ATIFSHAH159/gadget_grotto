@@ -6,6 +6,8 @@ import bodyParser from "body-parser";
 import Products from './Routes/ProductsRoutes.js';
 import authRoutes from './Routes/AuthRoutes.js';
 import paymentRoutes from './Routes/PaymentRoutes.js';
+import reviewRoutes from './Routes/reviewRoutes.js';
+import orderRoutes from './Routes/OrderRoutes.js';
 
 // Load environment variables before any other code
 dotenv.config();
@@ -40,8 +42,10 @@ app.use("/Admin/AddProducts",Products);
 app.use('/Images',express.static('Images'));
 app.use('/', Products);
 app.use("/Admin/ViewProducts",Products);
-app.use('/Pages/', authRoutes);
+app.use('/Pages', authRoutes);
 app.use('/api/payment', paymentRoutes);
+app.use('/api/reviews', reviewRoutes);
+app.use('/api/orders', orderRoutes);
 
 // Error handling middleware
 app.use((err, req, res, next) => {

@@ -1,0 +1,173 @@
+/* Admin Dashboard Styles */
+.admin-container {
+  background-color: #f8f9fa;
+  min-height: 100vh;
+}
+
+.admin-title {
+  color: #2c3e50;
+  font-weight: 600;
+  font-size: 1.8rem;
+}
+
+/* Stats Cards */
+.stats-card {
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease-in-out;
+}
+
+.stats-card:hover {
+  transform: translateY(-5px);
+}
+
+.stats-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+/* Table Styles */
+.admin-table {
+  border: none;
+}
+
+.admin-table thead th {
+  background-color: #f8f9fa;
+  border-bottom: 2px solid #e9ecef;
+  color: #6c757d;
+  font-weight: 600;
+  padding: 1rem;
+}
+
+.admin-table tbody td {
+  padding: 1rem;
+  vertical-align: middle;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.admin-table tbody tr:hover {
+  background-color: #f8f9fa;
+}
+
+/* Product Name */
+.product-name {
+  font-weight: 500;
+  color: #2c3e50;
+  font-size: 1rem;
+}
+
+/* Product Thumbnail */
+.product-thumbnail {
+  display: none;
+}
+
+/* Stars */
+.stars {
+  display: flex;
+  gap: 2px;
+}
+
+.star-filled {
+  color: #ffc107;
+}
+
+.star-empty {
+  color: #e4e5e9;
+}
+
+/* Review Cards */
+.review-card {
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease-in-out;
+}
+
+.review-card:hover {
+  transform: translateY(-2px);
+}
+
+.review-text {
+  color: #4a5568;
+  line-height: 1.6;
+}
+
+/* Badges */
+.badge {
+  font-weight: 500;
+  padding: 0.5em 1em;
+}
+
+/* Buttons */
+.btn-outline-primary {
+  border-color: #6366f1;
+  color: #6366f1;
+}
+
+.btn-outline-primary:hover {
+  background-color: #6366f1;
+  border-color: #6366f1;
+  color: white;
+}
+
+.btn-outline-danger {
+  border-color: #ef4444;
+  color: #ef4444;
+}
+
+.btn-outline-danger:hover {
+  background-color: #ef4444;
+  border-color: #ef4444;
+  color: white;
+}
+
+/* Modal Styles */
+.modal-content {
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.modal-header {
+  border-bottom: 1px solid #e9ecef;
+  padding: 1.5rem;
+}
+
+.modal-body {
+  padding: 1.5rem;
+}
+
+/* Loading Spinner */
+.spinner-border {
+  width: 3rem;
+  height: 3rem;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .stats-card {
+    margin-bottom: 1rem;
+  }
+  
+  .admin-table {
+    font-size: 0.9rem;
+  }
+  
+  .product-thumbnail {
+    width: 45px;
+    height: 45px;
+  }
+}
+
+/* Force white text for stats card headers in Reviews.js */
+.stats-card h6,
+.stats-card h3 {
+  color: #fff !important;
+} 

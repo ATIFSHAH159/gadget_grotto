@@ -19,7 +19,7 @@ export const AuthProvider = ({ children }) => {
   const registerUser = async (userData) => {
     try {
       const response = await register(userData);
-      setUser(response);
+      // Don't set user or store in localStorage after registration
       return response;
     } catch (error) {
       throw error;

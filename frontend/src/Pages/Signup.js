@@ -9,6 +9,7 @@ const Signup = ({ showNotification }) => {
     email: '',
     password: '',
     confirmPassword: '',
+    image: null
   });
   const [loading, setLoading] = useState(false);
   const [passwordStrength, setPasswordStrength] = useState('weak');
@@ -29,13 +30,22 @@ const Signup = ({ showNotification }) => {
     }
   };
 
+  const handleImageChange = (e) => {
+    if (e.target.files && e.target.files[0]) {
+      setFormData({
+        ...formData,
+        image: e.target.files[0]
+      });
+    }
+  };
+
   const checkPasswordStrength = (password) => {
     const hasUpperCase = /[A-Z]/.test(password);
     const hasLowerCase = /[a-z]/.test(password);
     const hasNumbers = /\d/.test(password);
     const isLongEnough = password.length >= 6;
 
-    const strength = [hasUpperCase, hasLowerCase, hasNumbers,  isLongEnough]
+    const strength = [hasUpperCase, hasLowerCase, hasNumbers, isLongEnough]
       .filter(Boolean).length;
 
     if (strength <= 2) return 'weak';
@@ -54,19 +64,26 @@ const Signup = ({ showNotification }) => {
     }
 
     try {
-      await register({
-        name: formData.name,
-        email: formData.email,
-        password: formData.password,
-      });
-      showNotification('Registration successful!', 'success');
+      const formDataToSend = new FormData();
+      formDataToSend.append('name', formData.name);
+      formDataToSend.append('email', formData.email);
+      formDataToSend.append('password', formData.password);
+      if (formData.image) {
+        formDataToSend.append('image', formData.image);
+      }
+
+      await register(formDataToSend);
+      showNotification('Registration successful! Please login to continue.', 'success');
       // Clear the form after successful registration
       setFormData({
         name: '',
         email: '',
         password: '',
         confirmPassword: '',
+        image: null
       });
+      // Navigate to login page instead of auto-login
+      navigate('/login');
     } catch (error) {
       showNotification(error.message || 'Registration failed. Please try again.', 'error');
     } finally {
@@ -79,6 +96,16 @@ const Signup = ({ showNotification }) => {
       <div className="auth-form">
         <h2>Create Account</h2>
         <form onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label>Profile Picture</label>
+            <input
+              type="file"
+              name="image"
+              onChange={handleImageChange}
+              accept="image/*"
+              disabled={loading}
+            />
+          </div>
           <div className="form-group">
             <label>Full Name</label>
             <input

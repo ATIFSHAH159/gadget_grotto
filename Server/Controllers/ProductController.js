@@ -1,7 +1,7 @@
 import ProductModel from '../models/ProductsCollection.js';
 
 export const AddProducts = async (req, res) => {
-    const {name, category, discription,price, pic} = req.body;
+    const {name, category, discription, price, pic, stock, costPrice, sellingPrice} = req.body;
     
     try {
       // Create a new instance of the Product model and populate it with the data
@@ -10,7 +10,10 @@ export const AddProducts = async (req, res) => {
             category,
             discription,
             price,
-            pic: req.file.path
+            pic: req.file ? req.file.path : pic,
+            stock: stock || 0,
+            costPrice: costPrice || 0,
+            sellingPrice: sellingPrice || price
       });
   
       // Save the new product to the database
@@ -70,7 +73,7 @@ export const searchProducts = async (req, res) => {
 
 export const updateProduct = async (req, res) => {
   const { id } = req.params;
-  const { name, price, discription } = req.body;
+  const { name, price, discription, stock, costPrice, sellingPrice } = req.body;
   
   try {
     const updatedProduct = await ProductModel.findByIdAndUpdate(
@@ -79,7 +82,10 @@ export const updateProduct = async (req, res) => {
         name, 
         price,
         discription,
-        pic: req.file ? req.file.path : undefined  // Handle image if provided
+        stock,
+        costPrice,
+        sellingPrice,
+        pic: req.file ? req.file.path : undefined
       },
       { new: true }
     );

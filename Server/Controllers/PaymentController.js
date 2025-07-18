@@ -63,7 +63,7 @@ export const createCheckoutSession = async (req, res) => {
         // If image URL is invalid, create the item without an image
         return {
           price_data: {
-            currency: 'usd',
+            currency: 'pkr',
             product_data: {
               name: item.name,
               description: `Quantity: ${item.quantity}`,

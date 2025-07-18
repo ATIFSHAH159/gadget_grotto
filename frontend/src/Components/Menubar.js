@@ -97,7 +97,7 @@ function Menubar() {
                       </NavDropdown.Item>
                       <NavDropdown.Item 
                         as={Link} 
-                        to="/products/Bluetooth_speakers"
+                        to="/products/Bluetooth_Speaker"
                         onClick={handleNavLinkClick}
                       >
                         Bluetooth Speakers
@@ -217,14 +217,35 @@ function Menubar() {
                 <NavDropdown
                   title={
                     <span className="d-flex align-items-center">
-                      <FaUser className="me-2" />
+                      <img
+                        src={user.image && (user.image.startsWith('http') ? user.image : `http://localhost:5000/${user.image}`) || '/default-avatar.png'}
+                        alt="Profile"
+                        className="navbar-profile-img me-2"
+                        style={{ width: 32, height: 32, borderRadius: '50%', objectFit: 'cover', border: '2px solid #00FFE5', background: '#222' }}
+                        onError={e => { e.target.onerror = null; e.target.src = '/default-avatar.png'; }}
+                      />
                       {user.name}
                     </span>
                   }
                   id="user-dropdown"
                   className="user-dropdown"
                 >
-                  <NavDropdown.Item onClick={handleLogout}>
+                  <div className="dropdown-user-info" style={{ padding: '16px 24px', textAlign: 'center', minWidth: 220 }}>
+                    <img
+                      src={user.image && (user.image.startsWith('http') ? user.image : `http://localhost:5000/${user.image}`) || '/default-avatar.png'}
+                      alt="Profile"
+                      className="navbar-profile-img mb-2"
+                      style={{ width: 64, height: 64, borderRadius: '50%', objectFit: 'cover', border: '2px solid #00FFE5', background: '#222' }}
+                      onError={e => { e.target.onerror = null; e.target.src = '/default-avatar.png'; }}
+                    />
+                    <div style={{ color: '#00FFE5', fontWeight: 600, fontSize: '1.1rem', marginTop: 8 }}>{user.name}</div>
+                    <div style={{ color: '#B0B0B8', fontSize: '0.95rem', marginBottom: 8 }}>{user.email}</div>
+                  </div>
+                  <NavDropdown.Divider />
+                  <NavDropdown.Item as={Link} to="/orders" style={{ textAlign: 'center', color: '#00FFE5', fontWeight: 500 }}>
+                    My Orders
+                  </NavDropdown.Item>
+                  <NavDropdown.Item onClick={handleLogout} style={{ textAlign: 'center', color: '#FF3B5B', fontWeight: 500 }}>
                     Logout
                   </NavDropdown.Item>
                 </NavDropdown>

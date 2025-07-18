@@ -1,8 +1,7 @@
 import React from "react";
-import { Container, Row, Col, Card, Button, Carousel } from "react-bootstrap";
+import { Container, Row, Col, Card, Carousel } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { FaLaptop, FaMicrochip, FaBatteryFull, FaTruck, FaHeadphones, FaShieldAlt } from "react-icons/fa";
-import Footer from "../Components/Footer";
 import "../Assets/Css/Landingpage.css";
 
 // Import images from Assets folder if they exist

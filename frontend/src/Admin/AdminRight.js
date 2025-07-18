@@ -4,6 +4,9 @@ import AdminHome from "./AdminHome";
 import AddProducts from "./AddProducts";
 import ViewProducts from "./ViewProducts";
 import Reviews from "./Reviews";
+import AdminOrders from "./AdminOrders";
+import AdminReports from "./AdminReports";
+import ManageUsers from "./ManageUsers";
 
 function AdminRight() {
   return (
@@ -12,6 +15,9 @@ function AdminRight() {
       <Route path="/AddProducts" element={<AddProducts />} />
       <Route path="/ViewProducts" element={<ViewProducts />} />
       <Route path="/Reviews" element={<Reviews/>} />
+      <Route path="/orders" element={<AdminOrders />} />
+      <Route path="/reports" element={<AdminReports />} />
+      <Route path="/users" element={<ManageUsers />} />
     </Routes>
   );
 }

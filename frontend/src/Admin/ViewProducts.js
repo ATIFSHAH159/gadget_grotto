@@ -23,6 +23,9 @@ function ViewProducts() {
     price: 0,
     discription: "",
     pic: null,
+    stock: 0,
+    costPrice: 0,
+    sellingPrice: 0
   });
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
   const [searchTerm, setSearchTerm] = useState("");
@@ -75,6 +78,9 @@ function ViewProducts() {
       price: product.price,
       discription: product.discription,
       pic: product.pic,
+      stock: product.stock || 0,
+      costPrice: product.costPrice || 0,
+      sellingPrice: product.sellingPrice || product.price || 0
     });
     setShowModal(true);
   };
@@ -83,22 +89,21 @@ function ViewProducts() {
 
   const handleUpdate = async (e) => {
     e.preventDefault();
-  
-    const { name, price, discription, pic } = updatedValues;
-  
+    const { name, price, discription, pic, stock, costPrice, sellingPrice } = updatedValues;
     if (!name || !price || !discription || !pic) {
       alert("Please fill in all fields before updating.");
       return;
     }
-  
     try {
       const id = selectedProduct._id;
       const formData = new FormData();
       formData.append("name", name);
       formData.append("price", price);
       formData.append("discription", discription);
+      formData.append("stock", stock);
+      formData.append("costPrice", costPrice);
+      formData.append("sellingPrice", sellingPrice);
       if (pic) formData.append("pic", pic);
-  
       await updateProductById(id, formData);
       setShowModal(false);
       getProductDetail();
@@ -134,6 +139,18 @@ function ViewProducts() {
               <div className="detail-row">
                 <span className="detail-label">Price:</span>
                 <span className="detail-value">${details.price}</span>
+              </div>
+              <div className="detail-row">
+                <span className="detail-label">Stock:</span>
+                <span className="detail-value">{details.stock}</span>
+              </div>
+              <div className="detail-row">
+                <span className="detail-label">Cost Price:</span>
+                <span className="detail-value">{details.costPrice}</span>
+              </div>
+              <div className="detail-row">
+                <span className="detail-label">Selling Price:</span>
+                <span className="detail-value">{details.sellingPrice || details.price}</span>
               </div>
               <div className="detail-row">
                 <span className="detail-label">Category:</span>
@@ -175,6 +192,9 @@ function ViewProducts() {
             <th>Picture</th>
             <th>Name</th>
             <th>Price</th>
+            <th>Stock</th>
+            <th>Cost Price</th>
+            <th>Selling Price</th>
             <th>Description</th>
             <th>Category</th>
             <th className="actions-column">Actions</th>
@@ -192,6 +212,9 @@ function ViewProducts() {
               </td>
               <td>{details.name}</td>
               <td>{details.price}</td>
+              <td>{details.stock}</td>
+              <td>{details.costPrice}</td>
+              <td>{details.sellingPrice || details.price}</td>
               <td>{details.discription}</td>
               <td>{details.category}</td>
               <td className="actions-cell">
@@ -324,6 +347,30 @@ function ViewProducts() {
                   />
                 )
               )}
+            </Form.Group>
+            <Form.Group controlId="formProductStock">
+              <Form.Label>Stock</Form.Label>
+              <Form.Control
+                type="number"
+                value={updatedValues.stock}
+                onChange={e => setUpdatedValues({ ...updatedValues, stock: e.target.value })}
+              />
+            </Form.Group>
+            <Form.Group controlId="formProductCostPrice">
+              <Form.Label>Cost Price</Form.Label>
+              <Form.Control
+                type="number"
+                value={updatedValues.costPrice}
+                onChange={e => setUpdatedValues({ ...updatedValues, costPrice: e.target.value })}
+              />
+            </Form.Group>
+            <Form.Group controlId="formProductSellingPrice">
+              <Form.Label>Selling Price</Form.Label>
+              <Form.Control
+                type="number"
+                value={updatedValues.sellingPrice}
+                onChange={e => setUpdatedValues({ ...updatedValues, sellingPrice: e.target.value })}
+              />
             </Form.Group>
 
             <Button variant="primary" type="submit">

@@ -45,6 +45,18 @@ function AddtoCart() {
       
       const { url } = await createCheckoutSession(items);
       window.location.href = url;
+
+      // Save cart and total in localStorage for order creation after payment
+      localStorage.setItem('order_cart', JSON.stringify({
+        orderItems: cart.map(item => ({
+          name: item.name,
+          quantity: item.quantity,
+          price: item.price,
+          image: item.pic,
+          product: item._id
+        })),
+        totalPrice: cartSubtotal + shipping + tax
+      }));
     } catch (error) {
       console.error('Checkout error:', error);
       if (error.message === 'Not authorized, no token') {

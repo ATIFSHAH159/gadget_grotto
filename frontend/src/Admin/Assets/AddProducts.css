@@ -3,72 +3,161 @@
 .add-product-form {
   max-width: 600px;
   margin: 50px auto;
-  background-color: #1c1c1e;
-  padding: 2rem;
-  border-radius: 20px;
-  box-shadow: 0 10px 30px rgba(0, 255, 229, 0.15);
+  background: linear-gradient(135deg, #18181a 60%, #23233a 100%);
+  padding: 2.5rem 2rem;
+  border-radius: 22px;
+  box-shadow: 0 8px 32px 0 rgba(0,255,229,0.18), 0 0 0 4px #00ffe5;
   font-family: 'Orbitron', sans-serif;
   color: #ffffff;
+  border: 2px solid #00ffe5;
+  position: relative;
+  overflow: hidden;
+}
+
+.add-product-form:before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 22px;
+  pointer-events: none;
+  box-shadow: 0 0 40px 10px #00ffe5, 0 0 0 2px #00ffe5 inset;
+  opacity: 0.12;
 }
 
 .add-product-form h2 {
   color: #00ffe5;
   text-align: center;
-  margin-bottom: 30px;
-  font-size: 28px;
-  text-shadow: 0 0 6px rgba(0, 255, 229, 0.5);
+  margin-bottom: 32px;
+  font-size: 2rem;
+  text-shadow: 0 0 12px #00ffe5, 0 0 6px rgba(0,255,229,0.5);
+  letter-spacing: 2px;
+  font-weight: 700;
+}
+
+.add-product-form label {
+  color: #00ffe5;
+  font-size: 1rem;
+  margin-bottom: 8px;
+  display: block;
+  font-weight: 600;
+  letter-spacing: 1px;
 }
 
 .add-product-form input[type="text"],
 .add-product-form input[type="number"],
 .add-product-form input[type="file"],
-.add-product-form textarea {
+.add-product-form textarea,
+.add-product-form select {
   width: 100%;
-  padding: 12px 15px;
-  margin-bottom: 20px;
+  padding: 14px 16px;
+  margin-bottom: 22px;
   border: 2px solid #00ffe5;
-  border-radius: 12px;
-  background-color: #0e0e10;
+  border-radius: 14px;
+  background: rgba(14, 14, 16, 0.95);
   color: #fff;
   font-family: 'Orbitron', sans-serif;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  font-size: 1rem;
+  transition: border-color 0.3s, box-shadow 0.3s, background 0.3s;
+  box-shadow: 0 2px 8px rgba(0,255,229,0.08);
 }
 
 .add-product-form input::placeholder,
 .add-product-form textarea::placeholder {
-  color: #999;
+  color: #00ffe5;
+  opacity: 0.7;
+  letter-spacing: 1px;
 }
 
 .add-product-form input:focus,
-.add-product-form textarea:focus {
+.add-product-form textarea:focus,
+.add-product-form select:focus {
   border-color: #007bff;
-  box-shadow: 0 0 8px rgba(0, 255, 229, 0.3);
+  box-shadow: 0 0 12px #00ffe5, 0 0 4px #007bff;
   outline: none;
+  background: rgba(0, 255, 229, 0.05);
 }
 
 .add-product-form textarea {
   resize: vertical;
-  min-height: 100px;
+  min-height: 110px;
 }
 
 .add-product-form button {
   width: 100%;
-  padding: 12px 20px;
-  background-color: transparent;
-  border: 2px solid #00ffe5;
-  color: #00ffe5;
-  font-size: 1rem;
-  border-radius: 12px;
+  padding: 14px 0;
+  background: linear-gradient(90deg, #00ffe5 0%, #007bff 100%);
+  border: none;
+  color: #18181a;
+  font-size: 1.1rem;
+  border-radius: 14px;
   cursor: pointer;
-  transition: all 0.3s ease;
   font-family: 'Orbitron', sans-serif;
   text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 2px;
+  margin-top: 10px;
+  box-shadow: 0 2px 12px 0 rgba(0,255,229,0.18);
+  transition: background 0.3s, color 0.3s, box-shadow 0.3s;
 }
 
 .add-product-form button:hover {
-  background-color: #00ffe5;
-  color: #000;
-  box-shadow: 0 0 10px rgba(0, 255, 229, 0.5);
+  background: linear-gradient(90deg, #007bff 0%, #00ffe5 100%);
+  color: #fff;
+  box-shadow: 0 0 18px #00ffe5, 0 0 8px #007bff;
+}
+
+.add-product-form select {
+  background: rgba(14, 14, 16, 0.95);
+  color: #00ffe5;
+  font-weight: 600;
+}
+
+.add-product-form select:focus {
+  border-color: #00ffe5;
+  box-shadow: 0 0 8px #00ffe5;
+}
+
+/* File input custom style */
+.add-product-form input[type="file"] {
+  background: transparent;
+  color: #00ffe5;
+  border: 2px dashed #00ffe5;
+  padding: 10px 0 10px 10px;
+  font-size: 1rem;
+}
+
+.add-product-form input[type="file"]::-webkit-file-upload-button {
+  background: #00ffe5;
+  color: #18181a;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s, color 0.3s;
+}
+
+.add-product-form input[type="file"]:hover::-webkit-file-upload-button {
+  background: #007bff;
+  color: #fff;
+}
+
+.add-product-form input[type="file"]::-ms-browse {
+  background: #00ffe5;
+  color: #18181a;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s, color 0.3s;
+}
+
+.add-product-form input[type="file"]:focus {
+  border-color: #00ffe5;
+  box-shadow: 0 0 8px #00ffe5;
 }
 
 /* Responsive */
@@ -77,64 +166,42 @@
     margin: 20px;
     padding: 1.5rem;
   }
-
   .add-product-form h2 {
-    font-size: 24px;
+    font-size: 1.5rem;
   }
 }
 
 @media (max-width: 768px) {
   .add-product-form {
-    margin: 30px 20px;
-    padding: 1.5rem;
+    margin: 30px 10px;
+    padding: 1.2rem;
   }
-  
   .add-product-form h2 {
-    font-size: 24px;
+    font-size: 1.2rem;
   }
-  
   .add-product-form input[type="text"],
   .add-product-form input[type="number"],
   .add-product-form input[type="file"],
   .add-product-form textarea,
   .add-product-form select {
     padding: 10px;
-    margin-bottom: 15px;
+    margin-bottom: 12px;
+    font-size: 0.95rem;
   }
 }
 
 @media (max-width: 480px) {
   .add-product-form {
-    margin: 15px 10px;
-    padding: 1rem;
+    margin: 10px 2px;
+    padding: 0.7rem;
   }
-  
   .add-product-form h2 {
-    font-size: 20px;
-    margin-bottom: 20px;
+    font-size: 1rem;
+    margin-bottom: 14px;
   }
-  
   .add-product-form button {
-    padding: 10px;
+    padding: 8px;
     font-size: 0.9rem;
   }
-}
-
-.add-product-form select {
-  width: 100%;
-  padding: 12px 15px;
-  margin-bottom: 20px;
-  border: 2px solid #00ffe5;
-  border-radius: 12px;
-  background-color: #0e0e10;
-  color: #fff;
-  font-family: 'Orbitron', sans-serif;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-.add-product-form select:focus {
-  border-color: #007bff;
-  box-shadow: 0 0 8px rgba(0, 255, 229, 0.3);
-  outline: none;
 }
 

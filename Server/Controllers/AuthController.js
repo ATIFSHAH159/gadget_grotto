@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken';
 // Generate JWT Token
 const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
-    expiresIn: '30d',
+    expiresIn: '1h',
   });
 };
 
@@ -19,11 +19,12 @@ export const registerUser = async (req, res) => {
       return res.status(400).json({ message: 'User already exists' });
     }
 
-    // Create user
+    // Create user with image if provided
     const user = await User.create({
       name,
       email,
       password,
+      image: req.file ? req.file.path : undefined
     });
 
     if (user) {
@@ -31,6 +32,7 @@ export const registerUser = async (req, res) => {
         _id: user._id,
         name: user.name,
         email: user.email,
+        image: user.image,
         isAdmin: user.isAdmin,
         token: generateToken(user._id),
       });
@@ -54,6 +56,7 @@ export const loginUser = async (req, res) => {
         _id: user._id,
         name: user.name,
         email: user.email,
+        image: user.image,
         isAdmin: user.isAdmin,
         token: generateToken(user._id),
       });
@@ -74,11 +77,64 @@ export const getUserProfile = async (req, res) => {
         _id: user._id,
         name: user.name,
         email: user.email,
+        image: user.image,
         isAdmin: user.isAdmin,
       });
     } else {
       res.status(404).json({ message: 'User not found' });
     }
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// Get All Users (Admin only)
+export const getAllUsers = async (req, res) => {
+  try {
+    const users = await User.find({}).select('-password');
+    res.json(users);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// Update User Role
+export const updateUserRole = async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const { isAdmin } = req.body;
+
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    user.isAdmin = isAdmin;
+    await user.save();
+
+    res.json({
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+      isAdmin: user.isAdmin
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// Delete User
+export const deleteUser = async (req, res) => {
+  try {
+    const { userId } = req.params;
+    
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    await User.deleteOne({ _id: userId });
+    res.json({ message: 'User deleted successfully' });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
